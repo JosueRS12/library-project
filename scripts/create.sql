@@ -1,3 +1,18 @@
+-- setting up the db
+DROP database librarydb;
+
+DROP USER libraryuser;
+
+CREATE USER libraryuser WITH PASSWORD 'password';
+
+CREATE database librarydb with template=template0 owner=libraryuser; 
+
+\CONNECT librarydb; 
+
+ALTER DEFAULT PRIVILEGES GRANT ALL ON tables to libraryuser;
+
+ALTER DEFAULT PRIVILEGES GRANT ALL ON sequences to libraryuser;
+
 /* Drop Tables */
 DROP TABLE IF EXISTS Client CASCADE;
 
