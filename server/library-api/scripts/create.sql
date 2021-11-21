@@ -34,8 +34,8 @@ CREATE TABLE Client
   i_type_id char(2) NOT NULL,
   n_first_name varchar(25) NOT NULL,
   n_last_name varchar(25) NOT NULL,
-  n_username varchar(20),
-  n_password varchar(20),
+  n_username varchar(20) NOT NULL,
+  n_password varchar(20) NOT NULL,
   UNIQUE(k_id, n_username, n_password)
 );
 
@@ -66,14 +66,16 @@ CREATE TABLE Book
 (
   k_id integer NOT NULL,
   k_id_catalogue integer NOT NULL,
+  n_name varchar(50) NOT NULL,
   v_price integer NOT NULL,
+  i_count integer NOT NULL,
   UNIQUE(k_id)
 );
 
 CREATE TABLE Catalogue 
 (
   k_id integer NOT NULL,
-  n_name integer NOT NULL,
+  n_name varchar (15) NOT NULL,
   UNIQUE(k_id)
 );
 
@@ -115,3 +117,6 @@ ALTER TABLE Cart_Book ADD CONSTRAINT IXFK_Cart_Book_Cart
 ALTER TABLE Book ADD CONSTRAINT IXFK_Book_Catalogue
 	FOREIGN KEY (k_id_catalogue) REFERENCES Catalogue (k_id) ON DELETE No Action ON UPDATE No Action
 ;
+
+-- creating a category for the book in catalogue
+INSERT INTO catalogue VALUES (123, 'magia');
