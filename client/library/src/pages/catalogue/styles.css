@@ -1,0 +1,13 @@
+/*div{*/
+  /*display: inherit;*/
+/*}*/
+
+.header{
+  margin-inline: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.decorade-button{
+  height: 40px;
+}

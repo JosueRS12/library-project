@@ -1,0 +1,32 @@
+table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+th, td {
+  padding: 13px;
+}
+
+thead{
+  background: gray;
+}
+
+p{
+  text-align: right;
+}
+
+table, thead th, tfoot th, tbody td {
+  border: 1px solid black;
+}
+
+.decorate_button{
+  background: none;
+  border: 0;
+}
+
+.container_buttons{
+  display: flex;
+  justify-content: space-between;
+}

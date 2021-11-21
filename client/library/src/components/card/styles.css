@@ -1,0 +1,15 @@
+.container{
+  margin-top: 3vh;
+  display: flex;
+}
+
+.details-card{
+  
+
+}
+
+.img-container{
+  padding-right: 20px;
+  height: 320px;
+  width: 250px;
+}

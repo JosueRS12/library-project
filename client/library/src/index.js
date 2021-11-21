@@ -1,19 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-//import Layout from './components/layout/layout';
-import Catalogue from './pages/catalogue/catalogue';
+import Home from './pages/home/home'
+import Catalogue from './pages/catalogue/catalogue'
+import Register from './pages/register/register'
+import Cart from './pages/shopping-cart/cart'
 
-const Home = () =>{
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+
+const RoutingApp = () =>{
+          //<Route path='/cataloge/:nameCataloge' component={Catalogue}/>
   return(
     <>
-      <Catalogue/>
+      <Router>
+        <Routes>
+          <Route path='/' exact element={<Home />}/>
+          <Route path='/catalogue' element={<Catalogue />}/>
+          <Route path='/register' element={<Register />}/>
+          <Route path='/cart/:id' element={<Cart />}/>
+        </Routes>
+      </Router>
     </>
-  )
+  );
 }
 
 ReactDOM.render(
   <React.StrictMode>
-    <Home/>
+    <RoutingApp/>
   </React.StrictMode>,
   document.getElementById('root')
 );
