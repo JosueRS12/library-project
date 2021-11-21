@@ -1,0 +1,11 @@
+FROM node:14-alpine3.12
+
+WORKDIR /app
+
+COPY ["package.json","package-lock.json", "/app"]
+
+RUN npm install --silent
+
+COPY . ./
+
+CMD ["npm","run","start"]
