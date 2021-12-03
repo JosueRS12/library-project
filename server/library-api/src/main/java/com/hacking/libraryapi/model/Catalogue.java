@@ -1,13 +1,8 @@
-package com.hacking.libraryapi.domain;
+package com.hacking.libraryapi.model;
 
 public class Catalogue {
     private Integer id;
     private String name;
-
-    public Catalogue(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
     public Integer getId() {
         return id;

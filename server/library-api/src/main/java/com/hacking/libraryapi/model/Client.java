@@ -1,21 +1,13 @@
-package com.hacking.libraryapi.domain;
+package com.hacking.libraryapi.model;
 
 public class Client {
+
     private Integer id;
     private String typeid;
     private String firstName;
     private String secondName;
     private String username;
     private String password;
-
-    public Client(Integer id, String typeid, String firstName, String secondName, String username, String password) {
-        this.id = id;
-        this.typeid = typeid;
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.username = username;
-        this.password = password;
-    }
 
     public Integer getId() {
         return id;

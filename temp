@@ -1,0 +1,25 @@
+docker run --name postgresdb -e POSTGRES_P│
+ASSWORD=admin -d -p 5430:5432 postgres:14.1-alpine
+
+psql -U postgres --file create.sql 
+
+
+
+--------------
+Catalogue{
+  - insertar catalogo
+  - agregar libros a catalogo{
+    - insertar en book{
+      
+    }
+  }
+  - listar libros
+  - 
+}
+
+
+---
+- terminar listallbook
+- ponerle cuidado al cast que se hizo
+- hacer book
+

@@ -1,4 +1,4 @@
-package com.hacking.libraryapi.domain;
+package com.hacking.libraryapi.model;
 
 import java.util.Date;
 import java.util.List;

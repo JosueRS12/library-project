@@ -1,4 +1,4 @@
-package com.hacking.libraryapi.domain;
+package com.hacking.libraryapi.model;
 
 public class CartBook {
     private Integer idBook;

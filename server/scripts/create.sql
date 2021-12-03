@@ -3,11 +3,11 @@ DROP database librarydb;
 
 DROP USER libraryuser;
 
-CREATE USER libraryuser WITH PASSWORD 'password';
+CREATE USER libraryuser WITH PASSWORD 'password' CREATEDB;
 
 CREATE database librarydb with template=template0 owner=libraryuser; 
 
-\CONNECT librarydb; 
+\c librarydb; 
 
 ALTER DEFAULT PRIVILEGES GRANT ALL ON tables to libraryuser;
 
@@ -118,5 +118,5 @@ ALTER TABLE Book ADD CONSTRAINT IXFK_Book_Catalogue
 	FOREIGN KEY (k_id_catalogue) REFERENCES Catalogue (k_id) ON DELETE No Action ON UPDATE No Action
 ;
 
--- creating a category for the book in catalogue
-INSERT INTO catalogue VALUES (123, 'magia');
+-- -- creating a category for the book in catalogue
+-- INSERT INTO catalogue VALUES (123, 'magia');
