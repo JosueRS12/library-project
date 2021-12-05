@@ -16,14 +16,12 @@ INSERT INTO cart VALUES (1234, 4);
 DELETE FROM cart Where k_id = 1234;
 -- cart_book
 INSERT INTO cart_book VALUES (3, 1234);
--- listar productos en el carrito .. el total value se calcula en el cliente.
-SELECT book.n_name, cart.v_count_products, book.v_price FROM book, cart_book, cart WHERE book.k_id = cart_book.k_id_book AND cart.k_id = cart_book.k_id_cart;
 DELETE FROM cart Where k_id = 1234;
-
-
-
-
-
-
 -- private static final String SQL_CREATE = "INSERT INTO client(k_id, i_type_id, n_firts_name, n_last_name, n_username, n_password) " +
             "VALUES(NEXTVAL('client'),?,?,?,?,?,?))";
+SELECT book.n_name, cart.v_count_products, book.v_price FROM ((cart_book INNER JOIN cart ON cart_book.k_id_cart = cart.k_id AND cart_book.k_id_cart = 1234)INNER JOIN book ON cart_book.k_id_book = book.k_id);
+
+UPDATE book set i_count = 3 WHERE k_id = 21
+
+
+

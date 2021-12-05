@@ -15,16 +15,16 @@ import java.util.List;
 public class CatalogueRepositoryImpl implements CatalogueRepository{
 
     private static final String SQL_CREATE = "INSERT INTO catalogue(k_id, n_name) VALUES (?,?)";
-    private static final String SQL_LIST = "SELECT book.n_name, book.i_count, book.v_price FROM book, catalogue " +
-            "WHERE book.k_id_catalogue = ?";
+    private static final String SQL_LIST = "SELECT * FROM book WHERE k_id_catalogue = ?";
     private static final String SQL_FIND_BY_ID = "SELECT * FROM catalogue WHERE k_id = ?";
 
     private RowMapper<Book> bookRowMapper = ((rs, rowNum) -> {
         Book book = new Book();
+        book.setId(rs.getInt("k_id"));
+        book.setIdCategory(rs.getInt("k_id_catalogue"));
         book.setName(rs.getString("n_name"));
         book.setCount(rs.getInt("i_count"));
         book.setPrice(rs.getInt("v_price"));
-
         return book;
     });
 
@@ -45,7 +45,7 @@ public class CatalogueRepositoryImpl implements CatalogueRepository{
             db.update(connection -> {
                 PreparedStatement ps = connection.prepareStatement(SQL_CREATE);
                 ps.setInt(1, id);
-                ps.setString(1, name);
+                ps.setString(2, name);
                 return ps;
             });
             return id;
@@ -57,7 +57,7 @@ public class CatalogueRepositoryImpl implements CatalogueRepository{
     @Override
     public Catalogue findById(Integer id) throws SQLException {
         try{
-            return (Catalogue) db.query(SQL_FIND_BY_ID, new Object[]{id}, catalogueRowMapper);
+            return db.queryForObject(SQL_FIND_BY_ID, new Object[]{id}, catalogueRowMapper);
         } catch(Exception e){
             throw new SQLException("Error finding catalogue"+ e.getMessage());
         }

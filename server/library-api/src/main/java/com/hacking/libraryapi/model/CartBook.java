@@ -4,11 +4,6 @@ public class CartBook {
     private Integer idBook;
     private Integer idCart;
 
-    public CartBook(Integer idBook, Integer idCart) {
-        this.idBook = idBook;
-        this.idCart = idCart;
-    }
-
     public Integer getIdBook() {
         return idBook;
     }

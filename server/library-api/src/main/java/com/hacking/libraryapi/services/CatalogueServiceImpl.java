@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Service
-public class CatalogeServiceImpl implements CatalogueService{
+public class CatalogueServiceImpl implements CatalogueService{
 
     @Autowired
     CatalogueRepository catalogueRepository;
@@ -22,7 +22,7 @@ public class CatalogeServiceImpl implements CatalogueService{
     }
 
     @Override
-    public List<Book> listAllBook(Integer idCategory) {
-        return null;
+    public List<Book> listAllBook(Integer idCategory) throws SQLException {
+        return catalogueRepository.obtainBooks(idCategory);
     }
 }

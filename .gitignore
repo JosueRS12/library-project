@@ -1,3 +1,6 @@
 # ignore files from vim
 *.swp
 
+temp
+
+

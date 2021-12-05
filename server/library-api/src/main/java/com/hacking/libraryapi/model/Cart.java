@@ -2,11 +2,15 @@ package com.hacking.libraryapi.model;
 
 public class Cart {
     private Integer id;
+    private Integer idClient;
     private Integer countProducts;
 
-    public Cart(Integer id, Integer countProducts) {
-        this.id = id;
-        this.countProducts = countProducts;
+    public Integer getIdClient() {
+        return idClient;
+    }
+
+    public void setIdClient(Integer idClient) {
+        this.idClient = idClient;
     }
 
     public Integer getId() {

@@ -4,22 +4,56 @@ ASSWORD=admin -d -p 5430:5432 postgres:14.1-alpine
 psql -U postgres --file create.sql 
 
 
-
---------------
-Catalogue{
-  - insertar catalogo
-  - agregar libros a catalogo{
-    - insertar en book{
-      
-    }
-  }
-  - listar libros
-  - 
+resources{
+  - catalogue ok
+  - client ok
+  - book ok
+  - cart
+  - cartbook
+  - purcharse
 }
 
 
----
-- terminar listallbook
-- ponerle cuidado al cast que se hizo
-- hacer book
+
+-------------- página catalogue (ok)---------------
+Catalogue{
+  - insertar catalogo (ok)
+  - agregar libros a catalogo{
+    - book{
+      - insertar
+      - eliminar
+    }
+  }
+  - listar libros (ok)
+  - 
+}
+
+------------- carrito de compras ---------
+Tener en cuenta:
+- Hay un carrito único para cada cliente
+
+cart{
+  - listart {
+    *se obtienen los id de cartbook.
+    - usar el servicio de buscar por id book;
+    - guardar todo en una lista
+    - retornar lista
+  }
+}
+
+cartbook{
+  - insertart book.
+  - eliminar book.
+  - eliminar todos los libros.
+  - listar all book del carrito.
+}
+
+purcharse{
+  - agregar compra (confirmar)
+}
+
+
+----- pruebas
+- aún se puede probar cart_book => hacer cart.
+
 

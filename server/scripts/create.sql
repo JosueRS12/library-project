@@ -42,7 +42,7 @@ CREATE TABLE Client
 CREATE TABLE Purchase 
 (
   k_ref_payment integer NOT NULL,
-  k_id_client integer NOT NULL,
+  k_id_cart integer NOT NULL,
   d_date date NOT NULL,
   v_total_value integer NOT NULL,
   n_products text[] NOT NULL,
@@ -52,14 +52,16 @@ CREATE TABLE Purchase
 CREATE TABLE Cart 
 (
   k_id integer NOT NULL,
-  v_count_products integer NOT NULL,
-  UNIQUE(k_id)
+  k_id_client integer NOT NULL,
+  v_count_products integer,
+  UNIQUE(k_id, k_id_client)
 );
 
 CREATE TABLE Cart_Book 
 (
   k_id_book integer NOT NULL,
-  k_id_cart integer NOT NULL
+  k_id_cart integer NOT NULL,
+  i_count integer NOT NULL
 );
 
 CREATE TABLE Book 
@@ -85,9 +87,11 @@ ALTER TABLE Client ADD CONSTRAINT PK_Client PRIMARY KEY (k_id);
 
 ALTER TABLE Purchase ADD CONSTRAINT PK_Purchase PRIMARY KEY (k_ref_payment);
 
-CREATE INDEX IXFK_Purchase_Client ON Purchase (k_id_client ASC);
+CREATE INDEX IXFK_Purchase_Cart ON Purchase (k_id_cart ASC);
 
 ALTER TABLE Cart ADD CONSTRAINT PK_Cart PRIMARY KEY (k_id);
+
+CREATE INDEX IXFK_Cart_Client ON Cart (k_id_client ASC);
 
 ALTER TABLE Cart_Book ADD CONSTRAINT PK_Cart_Book PRIMARY KEY (k_id_book, k_id_cart);
 
@@ -102,8 +106,8 @@ CREATE INDEX IXFK_Book_Catalogue ON Book (k_id_catalogue ASC);
 ALTER TABLE Catalogue ADD CONSTRAINT PK_Catalogue PRIMARY KEY (k_id);
 
 /* Create Foreign Key */
-ALTER TABLE Purchase ADD CONSTRAINT FK_Purchase_Client
-	FOREIGN KEY (k_id_Client) REFERENCES Client (k_id) ON DELETE No Action ON UPDATE No Action
+ALTER TABLE Purchase ADD CONSTRAINT FK_Purchase_Cart
+	FOREIGN KEY (k_id_Cart) REFERENCES Cart (k_id) ON DELETE No Action ON UPDATE No Action
 ;
 
 ALTER TABLE Cart_Book ADD CONSTRAINT IXFK_Cart_Book_Book
@@ -116,6 +120,10 @@ ALTER TABLE Cart_Book ADD CONSTRAINT IXFK_Cart_Book_Cart
 
 ALTER TABLE Book ADD CONSTRAINT IXFK_Book_Catalogue
 	FOREIGN KEY (k_id_catalogue) REFERENCES Catalogue (k_id) ON DELETE No Action ON UPDATE No Action
+;
+
+ALTER TABLE Cart ADD CONSTRAINT IXFK_Cart_Client
+	FOREIGN KEY (k_id_client) REFERENCES Client (k_id) ON DELETE No Action ON UPDATE No Action
 ;
 
 -- -- creating a category for the book in catalogue

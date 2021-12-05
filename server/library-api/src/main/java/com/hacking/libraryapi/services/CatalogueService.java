@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface CatalogueService {
     Catalogue createCatalogue(Integer id, String name) throws SQLException;
-    List<Book> listAllBook(Integer idCategory);
+    List<Book> listAllBook(Integer idCategory) throws SQLException;
 
 }
