@@ -9,5 +9,6 @@ import java.util.Map;
 public interface CartRepository {
     Integer create(Integer idCart, Integer idClient) throws SQLException;
     Cart findByIdClient(Integer id);
+    Boolean updateCountProduct(Integer count, Integer idCart) throws SQLException;
     List<Map<String, Object>> listBooks(Integer CBIdCart) throws SQLException;
 }

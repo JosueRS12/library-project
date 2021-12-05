@@ -14,7 +14,7 @@ public class BookRepositoryImpl implements  BookRepository{
 
     private static final String SQL_CREATE = "INSERT INTO book(k_id,k_id_catalogue,n_name,v_price,i_count) VALUES (?, ?, ?, ?, ?)";
     private static final String SQL_FIND_BY_ID = "SELECT * FROM book WHERE k_id = ?";
-    private static final String SQL_UPDATE_COUNT = "UPDATE book set i_count = (?) WHERE k_id = (?)";
+    private static final String SQL_UPDATE_COUNT = "UPDATE book set i_count = i_count - (?) WHERE k_id = (?)";
 
 
     @Autowired

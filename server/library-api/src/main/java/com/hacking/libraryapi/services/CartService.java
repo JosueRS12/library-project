@@ -10,5 +10,6 @@ public interface CartService {
     Integer create(Integer idCart, Integer idClient) throws SQLException;
     Cart findByIdClient(Integer id);
     List<Map<String, Object>> listBooks(Integer CBIdCart) throws SQLException;
+    Boolean updateCountProduct(Integer count, Integer idCart) throws SQLException;
     //drop cart
 }

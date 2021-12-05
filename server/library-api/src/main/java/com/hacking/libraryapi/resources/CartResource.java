@@ -32,13 +32,23 @@ public class CartResource {
     @GetMapping("/client/{id}")
     public ResponseEntity<Cart> findCartByIdClient(@PathVariable("id") Integer idClient){
         Cart cart = cartService.findByIdClient(idClient);
-        return new ResponseEntity<>(cart, HttpStatus.FOUND);
+        return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 
     @GetMapping("/{idCart}")
     public ResponseEntity<List<Map<String,Object>>> listAllProducts(@PathVariable("idCart") Integer idCart) throws SQLException {
         List<Map<String, Object>> listProducts = cartService.listBooks(idCart);
         return new ResponseEntity<>(listProducts, HttpStatus.OK);
+    }
+
+    @PutMapping("/update-count")
+    public ResponseEntity<Map<String, String>> updateCount(@RequestBody Map<String, Object> cartMap) throws SQLException {
+        Integer idCart = Integer.valueOf((String) cartMap.get("idCart"));
+        Integer count = Integer.valueOf((String) cartMap.get("count"));
+        cartService.updateCountProduct(count, idCart);
+        Map<String, String> map = new HashMap<>();
+        map.put("message", "updating succesfully");
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
 }

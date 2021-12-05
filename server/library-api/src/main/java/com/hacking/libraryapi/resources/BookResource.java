@@ -1,7 +1,6 @@
 package com.hacking.libraryapi.resources;
 
 import com.hacking.libraryapi.model.Book;
-import com.hacking.libraryapi.model.Catalogue;
 import com.hacking.libraryapi.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,9 +31,8 @@ public class BookResource {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @PutMapping("/newCount")
+    @PutMapping("/new-count")
     public ResponseEntity<Map<String, String>> updateCount(@RequestBody Map<String, Object> bookMap) throws SQLException {
-
         Integer count = Integer.valueOf((String) bookMap.get("count"));
         Integer idBook = Integer.valueOf((String) bookMap.get("idBook"));
         bookService.updateCount(count, idBook);

@@ -1,7 +1,91 @@
 import Layout from '../../components/layout/layout'
-import styles  from './styles.css' 
+import {useState, useEffect} from 'react'
+import './styles.css' 
 
 export default function Cart(){
+  const [prods, setProds] = useState([]);
+
+  useEffect(()=>{
+    fetchProds(); 
+  });
+
+  const fetchBook = async (count, idBook) => {
+    var book = {count, idBook};
+    const res = await fetch(`http://localhost:8080/api/book/new-count`, {
+      method: 'PUT',
+      headers: {"Content-type":"application/json"},
+      body: JSON.stringify(book)
+    }); 
+    return res.status;
+  }
+
+  const fetchProds = async () => {
+    const res = await fetch(`http://localhost:8080/api/cart/1234`); //123 => id cart => lo puedo obtener como en card...
+    const listProds = await res.json(); 
+    setProds(listProds);
+    return res;
+  }
+
+  const fetchDeleteCartBook = async(idCart)=>{
+    var cart = {idCart};
+    const res = await fetch( `http://localhost:8080/api/cartbook/delete/cartbook`,{
+      method: 'DELETE',
+      headers: {"Content-type":"application/json"},
+      body: JSON.stringify(cart)
+    });
+    return res.status;
+  }
+
+  const fetchDeleteProduct = async(idBook, idCart)=>{
+    var book = {idBook, idCart};
+    const res = await fetch( `http://localhost:8080/api/cartbook/delete/product`,{
+      method: 'DELETE',
+      headers: {"Content-type":"application/json"},
+      body: JSON.stringify(book)
+    });
+    return res.status;
+  }
+
+  const handleSubmitProduct = async(idBook, idCart)=>{
+    console.log(idBook, idCart);
+    var status = await fetchDeleteProduct(String(idBook), String(idCart));
+    if(status === 200){
+      window.alert("producto eliminado con éxito");
+    }else{
+      window.alert("Ha ocurrido un problema");
+    } 
+  }
+  
+  const obtainTotal = ()=>{
+    var total = 0;
+    prods.map((e)=>{
+      total+= (e.price * e.count);   
+      return null;
+    });
+    return total;
+  }
+
+  const updateCountBook = async ()=>{
+    var status = 200;
+    prods.map(async (e)=>{
+      if(status === 200){
+        status = await fetchBook(String(e.count), String(e.idBook)); //manejar escenarios y excepciones
+        console.log(status);
+        return status;
+      }else{
+        status = 500;
+        return status;
+      }
+    });
+  } 
+  
+
+  const purchase = async ()=>{
+    var resClean = await fetchDeleteCartBook(String(prods[0].idCart));
+    var resUpdate = await updateCountBook();
+    window.alert("compra realizada");
+  }
+
   return(
     <Layout>
       <h1> Carrito de compras </h1>
@@ -18,26 +102,29 @@ export default function Cart(){
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              <button type="submit" className="decorate_button">
-                Eliminar
-              </button>
-            </td>
-            <td>John Lennon</td>
-            <td>Rhythm Guitar</td>
-            <td>Rhythm Guitar</td>
-            <td>Rhythm Guitar</td>
-          </tr>
+            {
+              prods.map((e, i)=>
+              <tr key={i}>
+                <td>
+                  <button onClick={()=>handleSubmitProduct(e.idBook, e.idCart)} type="submit" className="decorate_button">
+                    Eliminar
+                  </button>
+                </td>
+                <td>{e.name}</td>
+                <td>{e.count}</td>
+                <td>{e.price}</td>
+                <td>{e.count * e.price}</td>
+              </tr>
+           )}
         </tbody>
       </table>
-      <p>valor total de la compra: $000.000</p>
+      <p>valor total de la compra: $ {obtainTotal()}</p>
       <div className="container_buttons">
         <button type="submit">
           Cancelar Compra
         </button>
-        <button type="submit">
-          Cancelar Compra
+        <button onClick={()=>purchase()}type="submit">
+          Confirmar Compra
         </button>
       </div>
     </Layout>
