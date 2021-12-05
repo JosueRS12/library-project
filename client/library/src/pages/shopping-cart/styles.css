@@ -22,8 +22,12 @@ table, thead th, tfoot th, tbody td {
 }
 
 .decorate_button{
+  color: blue;
   background: none;
   border: 0;
+}
+.decorate_button:hover{
+  font-size: 15px;
 }
 
 .container_buttons{

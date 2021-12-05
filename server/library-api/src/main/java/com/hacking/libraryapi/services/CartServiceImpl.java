@@ -29,4 +29,9 @@ public class CartServiceImpl implements CartService{
     public List<Map<String, Object>> listBooks(Integer CBIdCart) throws SQLException {
         return cartRepository.listBooks(CBIdCart);
     }
+
+    @Override
+    public Boolean updateCountProduct(Integer count, Integer idCart) throws SQLException {
+        return cartRepository.updateCountProduct(count, idCart);
+    }
 }

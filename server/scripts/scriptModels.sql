@@ -24,4 +24,10 @@ SELECT book.n_name, cart.v_count_products, book.v_price FROM ((cart_book INNER J
 UPDATE book set i_count = 3 WHERE k_id = 21
 
 
+SELECT cart_book.k_id_book, cart_book.k_id_cart, book.n_name, cart.v_count_products, book.v_price FROM ((cart_book INNER JOIN cart ON cart_book.k_id_cart = cart.k_id AND cart_book.k_id_cart = 1234)INNER JOIN book ON cart_book.k_id_book = book.k_id);
+
+
+
+
+
 

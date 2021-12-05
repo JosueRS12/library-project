@@ -1,5 +1,6 @@
 package com.hacking.libraryapi.services;
 
+import com.hacking.libraryapi.model.CartBook;
 import com.hacking.libraryapi.repositories.CartBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,12 @@ public class CartBookServiceImpl implements CartBookService{
     }
 
     @Override
-    public List<Integer> listIdBooks(Integer idCart) throws SQLException {
-        return cartBookRepository.listIdBooks(idCart);
+    public Boolean deleteCartBook(Integer idCart) throws SQLException {
+        return cartBookRepository.deleteCartBook(idCart);
+    }
+
+    @Override
+    public List<CartBook> findById(Integer idCart) throws SQLException {
+        return cartBookRepository.findById(idCart);
     }
 }
