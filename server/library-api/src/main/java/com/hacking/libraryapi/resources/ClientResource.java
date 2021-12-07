@@ -21,7 +21,6 @@ public class ClientResource {
 
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> register(@RequestBody Map<String, Object> clientMap) throws SQLException {
-
         Integer id = Integer.valueOf((String) clientMap.get("id"));
         String typeid = (String) clientMap.get("typeid");
         String firstname = (String) clientMap.get("firstname");
@@ -37,7 +36,12 @@ public class ClientResource {
     @GetMapping("/{id}")
     public ResponseEntity<Client> findClient(@PathVariable("id") Integer idClient){
         Client client = clientService.findById(idClient);
-        return new ResponseEntity<>(client, HttpStatus.FOUND);
+        return new ResponseEntity<>(client, HttpStatus.OK);
+    }
+    @GetMapping("/{user}/{pass}")
+    public ResponseEntity<Client> findClient(@PathVariable("user") String username, @PathVariable("pass") String password) throws SQLException {
+        Client client = clientService.findByUserPass(username, password);
+        return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
     @GetMapping ("")

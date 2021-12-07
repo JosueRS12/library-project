@@ -17,7 +17,8 @@ public class ClientRepositoryImpl implements ClientRepository{
     private static final String SQL_CREATE = "INSERT INTO client(k_id, i_type_id, n_first_name, n_last_name, n_username, n_password) " +
             "VALUES(?,?,?,?,?,?)";
     private static final String SQL_LIST = "SELECT * FROM client";
-    private static final String SQL_FIND_CLIENT = "SELECT * FROM client WHERE k_id = ?";
+    private static final String SQL_FIND_CLIENT_BY_ID = "SELECT * FROM client WHERE k_id = ?";
+    private static final String SQL_FIND_CLIENT_BY_USER = "SELECT * FROM client WHERE n_username = (?) AND n_password = (?)";
 
     @Autowired
     JdbcTemplate db;
@@ -55,9 +56,18 @@ public class ClientRepositoryImpl implements ClientRepository{
 
     @Override
     public Client findById(Integer id) {
-        return db.queryForObject(SQL_FIND_CLIENT, new Object[]{id}, clientRowMapper);
+        return db.queryForObject(SQL_FIND_CLIENT_BY_ID, new Object[]{id}, clientRowMapper);
     }
 
+    @Override
+    public Client findByUser(String user, String password) throws SQLException {
+        try{
+            return db.queryForObject(SQL_FIND_CLIENT_BY_USER, new Object[]{user, password}, clientRowMapper);
+        } catch(Exception e){
+            throw new SQLException("Error searching client by id" + e.getMessage());
+        }
+
+    }
 
 
     @Override

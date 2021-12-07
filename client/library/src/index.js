@@ -14,9 +14,11 @@ const RoutingApp = () =>{
       <Router>
         <Routes>
           <Route path='/' exact element={<Home />}/>
-          <Route path='/catalogue' element={<Catalogue />}/>
+          <Route path='/:user' element={<Home />}/>
+          <Route path='/catalogue/:idcat' element={<Catalogue />}/>
+          <Route path='/catalogue/:idcat/:iduser' element={<Catalogue />}/>
           <Route path='/register' element={<Register />}/>
-          <Route path='/cart/:id' element={<Cart />}/>
+          <Route path='/cart/:idCart' element={<Cart />}/>
         </Routes>
       </Router>
     </>
