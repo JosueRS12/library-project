@@ -1,13 +1,16 @@
 import Layout from '../../components/layout/layout'
 import {useState, useEffect} from 'react'
 import './styles.css' 
+import {useParams} from 'react-router-dom'
 
 export default function Cart(){
   const [prods, setProds] = useState([]);
+  const [countProd, setCountProd] = useState(prods.length);
+  var params = useParams();
 
   useEffect(()=>{
     fetchProds(); 
-  });
+  }, [countProd]);
 
   const fetchBook = async (count, idBook) => {
     var book = {count, idBook};
@@ -20,7 +23,7 @@ export default function Cart(){
   }
 
   const fetchProds = async () => {
-    const res = await fetch(`http://localhost:8080/api/cart/1234`); //123 => id cart => lo puedo obtener como en card...
+    const res = await fetch(`http://localhost:8080/api/cart/${params.idCart}`); //123 => id cart => lo puedo obtener como en card...
     const listProds = await res.json(); 
     setProds(listProds);
     return res;
@@ -47,9 +50,9 @@ export default function Cart(){
   }
 
   const handleSubmitProduct = async(idBook, idCart)=>{
-    console.log(idBook, idCart);
     var status = await fetchDeleteProduct(String(idBook), String(idCart));
     if(status === 200){
+      setCountProd(countProd - 1)
       window.alert("producto eliminado con éxito");
     }else{
       window.alert("Ha ocurrido un problema");
@@ -70,7 +73,6 @@ export default function Cart(){
     prods.map(async (e)=>{
       if(status === 200){
         status = await fetchBook(String(e.count), String(e.idBook)); //manejar escenarios y excepciones
-        console.log(status);
         return status;
       }else{
         status = 500;
@@ -80,9 +82,11 @@ export default function Cart(){
   } 
   
 
-  const purchase = async ()=>{
-    var resClean = await fetchDeleteCartBook(String(prods[0].idCart));
-    var resUpdate = await updateCountBook();
+  const purchase = async ()=> {
+    //verificar si el producto está agotado
+    await fetchDeleteCartBook(String(prods[0].idCart));
+    setCountProd(countProd - 1)
+    await updateCountBook();
     window.alert("compra realizada");
   }
 

@@ -2,12 +2,6 @@ import React from 'react';
 import {useState, useEffect} from 'react';
 import './styles.css'
 
-
-const fetchCart = async (idClient) =>{
-  const res = await fetch(`http://localhost:8080/api/cart/client/${idClient}`);
-  return await res.json();
-}
-
 const fetchBooks = async (idBook, idCart, count) => {
   const book = {idBook, idCart, count};
   const res = await fetch( `http://localhost:8080/api/cartbook/add`,{
@@ -17,11 +11,11 @@ const fetchBooks = async (idBook, idCart, count) => {
   });
   return res.status;
 }
-const handleSubmit = async (idBook, idClient, count) =>{
-  console.log(count);
-  if(count !== 0){
-    let cart = await fetchCart(idClient);
-    const status = await fetchBooks(String(idBook), String(cart.id), String(count));
+
+const addBook = async (idBook, idClient, count, idCart) =>{
+  if(count > 0){
+    console.log(count);
+    const status = await fetchBooks(String(idBook), String(idCart), String(count));
     if(status === 500){
       window.alert('No ha sido posible agregar el libro al carrito');
     }else if(status === 200){
@@ -50,14 +44,13 @@ const handleButton = (op, disponible, idBook) =>{
 }
 
 
-export default function Card({idBook, name, count, price}){
+export default function Card({idBook, name, count, price, idClient, idCart}){
   const [prodCount, setProdCount] = useState(0);
   useEffect(()=>{
     var valueCount = document.getElementById(idBook);
     valueCount.setAttribute("value", prodCount);
-  }, [prodCount]);
+  }, [prodCount, idBook]);
   
-  var idClient = '4321';
   return(
     <div className="container">
       <img className="img-container" src=" https://phantom-marca.unidadeditorial.es/8aaf9a66118e335ea504d938f4686fac/resize/1320/f/jpg/assets/multimedia/imagenes/2021/11/12/16367392288904.jpg" alt="harry potter"/>
@@ -72,7 +65,7 @@ export default function Card({idBook, name, count, price}){
             <button className="child_selector" onClick={()=>setProdCount(handleButton('+', count, idBook))}> + </button>
             <button className="child_selector" onClick={()=>setProdCount(handleButton('-', count, idBook))}> - </button>
           </div>
-          <button type="submit" className="button-add" onClick={()=>handleSubmit(idBook, idClient, prodCount)}>Agregar</button>
+          <button type="submit" className="button-add" onClick={()=>addBook(idBook, idClient, prodCount, idCart)}>Agregar</button>
         </div>
       </div>
     </div>

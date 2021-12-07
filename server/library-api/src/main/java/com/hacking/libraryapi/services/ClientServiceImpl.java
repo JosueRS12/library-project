@@ -28,6 +28,11 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
+    public Client findByUserPass(String user, String password) throws SQLException {
+        return clientRepository.findByUser(user, password);
+    }
+
+    @Override
     public List<Client> listAllClient() throws SQLException {
         return clientRepository.listClient();
     }

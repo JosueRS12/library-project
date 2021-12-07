@@ -19,12 +19,12 @@ public class CartResource {
     @Autowired
     CartService cartService;
     @PostMapping("/create")
-    public ResponseEntity<Map<String, String>> create(@RequestBody Map<String, Object> cartMap) throws SQLException {
+    public ResponseEntity<Map<String, Object>> create(@RequestBody Map<String, Object> cartMap) throws SQLException {
         Integer idCart = Integer.valueOf((String) cartMap.get("idCart"));
         Integer idClient = Integer.valueOf((String) cartMap.get("idClient"));
         cartService.create(idCart, idClient);
-        Map<String, String> map = new HashMap<>();
-        map.put("message", "registered succesfully");
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", idCart);
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 

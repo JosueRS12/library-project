@@ -48,22 +48,24 @@ Versión 0.2
 Para esto, seben hacer las request pre-establecidas en el siguiente link de postman. [Colección de postman](https://www.getpostman.com/collections/57edcca8491c2b99f9ff)
 
 Una vez en postman, ejecutar las siguientes request:
- - client/RegisterUser
  - catalogue/registerCatalogue
  - book/registerBook_[1...3]
- - cart/create
 
-## Aplicación
-En esta versión se puede:
+## Aplicación - funcionalidades:
+- Registrar usuario.
+- iniciar sesión.
+- crear carrito para usuario.
+- agregar producto a carrito del usuario logueado. 
+- persistir carrito de usuario.
+- consultar los catalogos creados.
 - agregar libros al catalogo creado.
-- agregar libros al carrito creado.
-- eliminar libros del carrito.
+- agregar productos al carrito creado.
+- eliminar productos del carrito.
 - confirmar compra.
+- entre otros...
 
-##### Limitaciones
-> El carrito está estático para el id del cliente creado en la request; También listar productos está estático para el catalogo creado en la request.
-> Registrar usuario no está implementado del lado del cliente.
-
-Se está trabajando para solventar las limitaciones. Se lanzará una versión nueva prontamente con el tag `0.3`.
+ 
+> En la proxima versión se tendrá la aplicación totalmente dockerizada => tag
+> 0.4
 
 :D :D :D :D
