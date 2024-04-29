@@ -6,7 +6,7 @@ export default function Layout(props){
 
   return(
     <>
-      <h1> Harry Books - Tienda Online </h1>
+      <h1> ALEJANDRÍA - Tienda Online </h1>
       <p>
         {
           props.log ? 'sesion activa' : null

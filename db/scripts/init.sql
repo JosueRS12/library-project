@@ -1,17 +1,17 @@
 -- setting up the db
-DROP database librarydb;
+-- DROP database librarydb;
 
-DROP USER libraryuser;
+-- DROP USER libraryuser;
 
 CREATE USER libraryuser WITH PASSWORD 'password' CREATEDB;
 
 CREATE database librarydb with template=template0 owner=libraryuser; 
 
-\c librarydb; 
-
 ALTER DEFAULT PRIVILEGES GRANT ALL ON tables to libraryuser;
 
 ALTER DEFAULT PRIVILEGES GRANT ALL ON sequences to libraryuser;
+
+\c librarydb libraryuser; 
 
 /* Drop Tables */
 DROP TABLE IF EXISTS Client CASCADE;
@@ -125,6 +125,3 @@ ALTER TABLE Book ADD CONSTRAINT IXFK_Book_Catalogue
 ALTER TABLE Cart ADD CONSTRAINT IXFK_Cart_Client
 	FOREIGN KEY (k_id_client) REFERENCES Client (k_id) ON DELETE No Action ON UPDATE No Action
 ;
-
--- -- creating a category for the book in catalogue
--- INSERT INTO catalogue VALUES (123, 'magia');
