@@ -4,3 +4,5 @@
 temp
 server/postgresDoc.txt
 
+db/.env
+

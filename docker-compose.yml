@@ -17,18 +17,18 @@ services:
     image: library-api:0.0.1-SNAPSHOT
     ports: 
       - 8080:8080
-    environment: 
-      DOCKER_BUILDKIT: 1
+    env_file:
+      - ./db/.env    
     networks:
       - alejandria
 
   db:
     container_name: alejandria_db
     image: postgres:14.1-alpine
-    ports:
-      - 5430:5432
     env_file:
       - ./db/.env
+    ports:
+      - 5430:5432
     volumes:
       - ./db/scripts/:/home/postgres/scripts
       - ./db/scripts/init.sql:/docker-entrypoint-initdb.d/init.sql

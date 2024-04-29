@@ -3,7 +3,7 @@
 
 -- DROP USER libraryuser;
 
-CREATE USER libraryuser WITH PASSWORD 'password' CREATEDB;
+CREATE USER libraryuser WITH PASSWORD 'alejandria' CREATEDB;
 
 CREATE database librarydb with template=template0 owner=libraryuser; 
 
